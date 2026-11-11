@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>東京 & 北海道 7日家族之旅</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter & Noto Sans TC -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        fuji: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            500: '#3b82f6',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        },
+                        snow: {
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            200: '#e2e8f0',
+                            800: '#1e293b',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Noto Sans TC"', 'Poppins', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Noto Sans TC', 'Poppins', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+            background-color: #f1f5f9;
+        }
+        .pb-safe { padding-bottom: env(safe-area-inset-bottom, 1rem); }
+        .pt-safe { padding-top: env(safe-area-inset-top, 0.5rem); }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+        }
+        .custom-checkbox:checked + label .checkbox-box {
+            background-color: #3b82f6;
+            border-color: #3b82f6;
+        }
+        .custom-checkbox:checked + label .checkbox-box i { display: block; }
+        .custom-checkbox:checked + label .item-text {
+            text-decoration: line-through;
+            color: #94a3b8;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-5px) rotate(5deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+        .float-anim { animation: float 4s ease-in-out infinite; }
+    </style>
+</head>
+<body class="text-slate-800 bg-slate-100 max-w-md mx-auto min-h-screen relative shadow-2xl flex flex-col">
+
+    <!-- Header Banner -->
+    <header class="bg-gradient-to-r from-blue-900 via-indigo-900 to-slate-900 text-white pt-safe px-5 pb-5 relative overflow-hidden rounded-b-3xl shadow-lg">
+        <div class="absolute -right-6 -bottom-6 opacity-15 text-8xl pointer-events-none float-anim text-blue-200">
+            <i class="fa-solid fa-snowflake"></i>
+        </div>
+        <div class="absolute right-20 -top-4 opacity-10 text-9xl pointer-events-none text-white">
+            <i class="fa-solid fa-mountain"></i>
+        </div>
+        <div class="relative z-10 pt-3">
+            <div class="flex justify-between items-center mb-1">
+                <span class="inline-block bg-blue-500/30 border border-blue-400/40 text-blue-200 text-xs px-2.5 py-0.5 rounded-full font-medium">
+                    <i class="fa-regular fa-calendar-check mr-1"></i> 11/21 - 11/27 (7天6夜)
+                </span>
+                <span class="text-xs bg-amber-500/20 text-amber-300 border border-amber-400/30 px-2 py-0.5 rounded-full font-semibold">
+                    <i class="fa-solid fa-users mr-1"></i> 4大1童 (8歲)
+                </span>
+            </div>
+            <h1 class="text-2xl font-bold tracking-tight text-white flex items-center gap-2">
+                東京 ✈️ 北海道 <span class="text-xs font-normal bg-red-600 text-white px-2 py-0.5 rounded-md uppercase">Japan</span>
+            </h1>
+            <p class="text-xs text-blue-200 mt-1 flex items-center gap-2">
+                <span><i class="fa-solid fa-hotel text-amber-400"></i> 上野 Moto Ueno III</span>
+                <span>•</span>
+                <span><i class="fa-solid fa-snowflake text-sky-300"></i> 札幌 PINN-N4E2 Ⅱ</span>
+            </p>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main id="app-content" class="flex-1 px-4 pt-4 pb-24 overflow-y-auto no-scrollbar">
+
+        <!-- PAGE 1: ITINERARY -->
+        <section id="page-itinerary" class="page-view space-y-4">
+            <div class="flex gap-2 overflow-x-auto no-scrollbar py-1 -mx-4 px-4 sticky top-0 z-20 bg-slate-100/90 backdrop-blur-md">
+                <button onclick="switchDay(1)" id="day-btn-1" class="day-btn flex-shrink-0 px-3.5 py-2 rounded-2xl text-xs font-bold transition-all shadow-sm bg-blue-600 text-white scale-105">Day 1<br><span class="font-normal opacity-80">11/21 (四)</span></button>
+                <button onclick="switchDay(2)" id="day-btn-2" class="day-btn flex-shrink-0 px-3.5 py-2 rounded-2xl text-xs font-bold transition-all shadow-sm bg-white text-slate-600">Day 2<br><span class="font-normal opacity-80">11/22 (五)</span></button>
+                <button onclick="switchDay(3)" id="day-btn-3" class="day-btn flex-shrink-0 px-3.5 py-2 rounded-2xl text-xs font-bold transition-all shadow-sm bg-white text-slate-600">Day 3<br><span class="font-normal opacity-80">11/23 (六)</span></button>
+                <button onclick="switchDay(4)" id="day-btn-4" class="day-btn flex-shrink-0 px-3.5 py-2 rounded-2xl text-xs font-bold transition-all shadow-sm bg-white text-slate-600">Day 4<br><span class="font-normal opacity-80">11/24 (日)</span></button>
+                <button onclick="switchDay(5)" id="day-btn-5" class="day-btn flex-shrink-0 px-3.5 py-2 rounded-2xl text-xs font-bold transition-all shadow-sm bg-white text-slate-600">Day 5<br><span class="font-normal opacity-80">11/25 (一)</span></button>
+                <button onclick="switchDay(6)" id="day-btn-6" class="day-btn flex-shrink-0 px-3.5 py-2 rounded-2xl text-xs font-bold transition-all shadow-sm bg-white text-slate-600">Day 6<br><span class="font-normal opacity-80">11/26 (二)</span></button>
+                <button onclick="switchDay(7)" id="day-btn-7" class="day-btn flex-shrink-0 px-3.5 py-2 rounded-2xl text-xs font-bold transition-all shadow-sm bg-white text-slate-600">Day 7<br><span class="font-normal opacity-80">11/27 (三)</span></button>
+            </div>
+
+            <!-- Day 1 -->
+            <div id="day-content-1" class="day-content space-y-3">
+                <div class="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-2xl p-3.5 text-xs text-blue-900 flex justify-between items-center shadow-sm">
+                    <div>
+                        <span class="font-bold text-sm block mb-0.5">Day 1：抵達東京 & 新宿牛舌晚餐</span>
+                        <p class="text-slate-600">成田降落 ➔ 京成Skyliner ➔ 上野民宿 ➔ 新宿牛舌</p>
+                    </div>
+                    <span class="text-2xl"><i class="fa-solid fa-plane-arrival text-blue-600"></i></span>
+                </div>
+                <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100 relative pl-12">
+                    <div class="absolute left-4 top-5 w-5 h-5 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xs font-bold">1</div>
+                    <span class="text-xs font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded-md">12:35</span>
+                    <h3 class="font-bold text-slate-800 text-sm mt-1">抵達成田國際機場 (NRT)</h3>
+                    <p class="text-xs text-slate-500 mt-1">辦理入境、領取行李並前往購買京成 Skyliner 車票。</p>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Narita+International+Airport" target="_blank" class="inline-flex items-center gap-1.5 text-xs bg-slate-100 text-slate-700 px-2.5 py-1 rounded-lg mt-2 font-medium hover:bg-blue-50 hover:text-blue-600 transition">
+                        <i class="fa-solid fa-location-dot text-red-500"></i> 開啟成田機場導航
+                    </a>
+                </div>
+                <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100 relative pl-12">
+                    <div class="absolute left-4 top-5 w-5 h-5 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xs font-bold">2</div>
+                    <span class="text-xs font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded-md">14:30 - 16:00</span>
+                    <h3 class="font-bold text-slate-800 text-sm mt-1">搭乘 Skyliner ➔ 上野民宿入住</h3>
+                    <p class="text-xs text-slate-500 mt-1">抵達京成上野站後步行至 Moto Hotel Ueno III 放行李。</p>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Moto+Hotel+Ueno+III+Tokyo" target="_blank" class="inline-flex items-center gap-1.5 text-xs bg-slate-100 text-slate-700 px-2.5 py-1 rounded-lg mt-2 font-medium hover:bg-blue-50 hover:text-blue-600 transition">
+                        <i class="fa-solid fa-hotel text-amber-500"></i> 開啟東京民宿導航
+                    </a>
+                </div>
+                <div class="bg-amber-50/80 rounded-2xl p-4 shadow-sm border border-amber-200 relative pl-12">
+                    <div class="absolute left-4 top-5 w-5 h-5 bg-amber-500 text-white rounded-full flex items-center justify-center text-xs font-bold"><i class="fa-solid fa-utensils text-[10px]"></i></div>
+                    <span class="text-xs font-bold text-amber-800 bg-amber-100 px-2 py-0.5 rounded-md">18:30 - 20:30</span>
+                    <h3 class="font-bold text-slate-800 text-sm mt-1">晚餐：Gyutan Ara (新宿牛舌名店)</h3>
+                    <p class="text-xs text-slate-600 mt-1">前往新宿享用炭火現烤香厚牛舌定食。</p>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Gyutan+Ara+Shinjuku" target="_blank" class="inline-flex items-center gap-1.5 text-xs bg-amber-600 text-white px-3 py-1.5 rounded-lg mt-2 font-medium shadow-sm hover:bg-amber-700 transition">
+                        <i class="fa-solid fa-map-pin"></i> 導航至 Gyutan Ara 新宿店
+                    </a>
+                </div>
+            </div>
+
+            <!-- Day 2 -->
+            <div id="day-content-2" class="day-content space-y-3 hidden">
+                <div class="bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-200 rounded-2xl p-3.5 text-xs text-emerald-900 flex justify-between items-center shadow-sm">
+                    <div>
+                        <span class="font-bold text-sm block mb-0.5">Day 2：富士山河口湖包車一日遊</span>
+                        <p class="text-slate-600">專車接送 ➔ 河口湖 ➔ 淺間公園 ➔ 忍野八海</p>
+                    </div>
+                    <span class="text-2xl"><i class="fa-solid fa-mountain text-emerald-600"></i></span>
+                </div>
+                <div class="bg-emerald-500 text-white p-3.5 rounded-2xl flex items-center gap-3 shadow-sm">
+                    <i class="fa-solid fa-van-shuttle text-2xl"></i>
+                    <div class="text-xs">
+                        <span class="font-bold block text-sm">早上 08:30 包車上車！</span>
+                        <span>請於民宿門口準時集合上車。</span>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100 relative pl-12">
+                    <div class="absolute left-4 top-5 w-5 h-5 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center text-xs font-bold">1</div>
+                    <span class="text-xs font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md">10:30 - 16:00</span>
+                    <h3 class="font-bold text-slate-800 text-sm mt-1">新倉山淺間公園、餺飥麵午餐、忍野八海</h3>
+                    <p class="text-xs text-slate-500 mt-1">飽覽富士山絕景、品嚐當地鄉土餺飥麵與清澈湧泉景致。</p>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Oshino+Hakkai" target="_blank" class="inline-flex items-center gap-1.5 text-xs bg-slate-100 text-slate-700 px-2.5 py-1 rounded-lg mt-2 font-medium hover:bg-emerald-50 hover:text-emerald-700 transition">
+                        <i class="fa-solid fa-location-dot text-red-500"></i> 開啟忍野八海導航
+                    </a>
+                </div>
+            </div>
+
+            <!-- Day 3 -->
+            <div id="day-content-3" class="day-content space-y-3 hidden">
+                <div class="bg-gradient-to-r from-purple-50 to-pink-50 border border-purple-200 rounded-2xl p-3.5 text-xs text-purple-900 flex justify-between items-center shadow-sm">
+                    <div>
+                        <span class="font-bold text-sm block mb-0.5">Day 3：輕井澤王子購物廣場 Outlet 血拼</span>
+                        <p class="text-slate-600">上野站 ➔ 北陸新幹線 ➔ 輕井澤 Outlet</p>
+                    </div>
+                    <span class="text-2xl"><i class="fa-solid fa-bag-shopping text-purple-600"></i></span>
+                </div>
+                <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100 relative pl-12">
+                    <div class="absolute left-4 top-5 w-5 h-5 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center text-xs font-bold">1</div>
+                    <span class="text-xs font-bold text-purple-700 bg-purple-50 px-2 py-0.5 rounded-md">08:30 - 17:00</span>
+                    <h3 class="font-bold text-slate-800 text-sm mt-1">搭乘新幹線至輕井澤 Outlet 全日購物</h3>
+                    <p class="text-xs text-slate-500 mt-1">寬廣戶外購物園區，大人小孩都能輕鬆逛街與享用美食。</p>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Karuizawa+Prince+Shopping+Plaza" target="_blank" class="inline-flex items-center gap-1.5 text-xs bg-purple-600 text-white px-3 py-1.5 rounded-lg mt-2 font-medium shadow-sm hover:bg-purple-700 transition">
+                        <i class="fa-solid fa-map-pin"></i> 輕井澤 Outlet 地圖導航
+                    </a>
+                </div>
+            </div>
+
+            <!-- Day 4 -->
+            <div id="day-content-4" class="day-content space-y-3 hidden">
+                <div class="bg-gradient-to-r from-sky-50 to-blue-50 border border-sky-200 rounded-2xl p-3.5 text-xs text-sky-900 flex justify-between items-center shadow-sm">
+                    <div>
+                        <span class="font-bold text-sm block mb-0.5">Day 4：飛往北海道 ➔ 札幌市區</span>
+                        <p class="text-slate-600">羽田飛新千歲 ➔ PINN民宿 ➔ 狸小路&電視塔</p>
+                    </div>
+                    <span class="text-2xl"><i class="fa-solid fa-snowflake text-sky-500"></i></span>
+                </div>
+                <div class="bg-sky-600 text-white p-3.5 rounded-2xl flex items-center gap-3 shadow-sm">
+                    <i class="fa-solid fa-plane text-2xl"></i>
+                    <div class="text-xs">
+                        <span class="font-bold block text-sm">國內線班機：10:15 - 11:45</span>
+                        <span>東京羽田 (HND) ✈️ 札幌新千歲 (CTS)</span>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100 relative pl-12">
+                    <div class="absolute left-4 top-5 w-5 h-5 bg-sky-100 text-sky-600 rounded-full flex items-center justify-center text-xs font-bold">1</div>
+                    <span class="text-xs font-bold text-sky-700 bg-sky-50 px-2 py-0.5 rounded-md">13:30 - 20:30</span>
+                    <h3 class="font-bold text-slate-800 text-sm mt-1">JR 快速 Airport ➔ 札幌 PINN 民宿 ➔ 狸小路海鮮晚餐</h3>
+                    <p class="text-xs text-slate-500 mt-1">入住 PINN-N4E2-Ⅱ，漫步大通公園與狸小路大啖海鮮。</p>
+                    <a href="https://www.google.com/maps/search/?api=1&query=PINN-N4E2+II+Sapporo" target="_blank" class="inline-flex items-center gap-1.5 text-xs bg-slate-100 text-slate-700 px-2.5 py-1 rounded-lg mt-2 font-medium hover:bg-sky-50 hover:text-sky-700 transition">
+                        <i class="fa-solid fa-hotel text-sky-600"></i> 開啟札幌民宿導航
+                    </a>
+                </div>
+            </div>
+
+            <!-- Day 5 -->
+            <div id="day-content-5" class="day-content space-y-3 hidden">
+                <div class="bg-gradient-to-r from-cyan-50 to-blue-50 border border-cyan-200 rounded-2xl p-3.5 text-xs text-cyan-900 flex justify-between items-center shadow-sm">
+                    <div>
+                        <span class="font-bold text-sm block mb-0.5">Day 5：旭山動物園一日遊</span>
+                        <p class="text-slate-600">巴士一日遊 ➔ 企鵝散步 ➔ 北極熊館 ➔ 烤羊肉晚餐</p>
+                    </div>
+                    <span class="text-2xl"><i class="fa-solid fa-otter text-cyan-600"></i></span>
+                </div>
+                <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100 relative pl-12">
+                    <div class="absolute left-4 top-5 w-5 h-5 bg-cyan-100 text-cyan-600 rounded-full flex items-center justify-center text-xs font-bold">1</div>
+                    <span class="text-xs font-bold text-cyan-700 bg-cyan-50 px-2 py-0.5 rounded-md">全天行程</span>
+                    <h3 class="font-bold text-slate-800 text-sm mt-1">旭山動物園親子遊</h3>
+                    <p class="text-xs text-slate-500 mt-1">欣賞超人氣企鵝遊行、北極熊與海豹館，小朋友最愛！</p>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Asahiyama+Zoo" target="_blank" class="inline-flex items-center gap-1.5 text-xs bg-cyan-600 text-white px-3 py-1.5 rounded-lg mt-2 font-medium shadow-sm hover:bg-cyan-700 transition">
+                        <i class="fa-solid fa-map-pin"></i> 旭山動物園導航
+                    </a>
+                </div>
+            </div>
+
+            <!-- Day 6 -->
+            <div id="day-content-6" class="day-content space-y-3 hidden">
+                <div class="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-2xl p-3.5 text-xs text-amber-900 flex justify-between items-center shadow-sm">
+                    <div>
+                        <span class="font-bold text-sm block mb-0.5">Day 6：二條市場海鮮 ➔ 百貨血拼 ➔ 帝王蟹大餐</span>
+                        <p class="text-slate-600">二條市場 ➔ 北海道廳舊本廳舍 ➔ JR札幌站百貨</p>
+                    </div>
+                    <span class="text-2xl"><i class="fa-solid fa-shrimp text-amber-600"></i></span>
+                </div>
+                <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100 relative pl-12">
+                    <div class="absolute left-4 top-5 w-5 h-5 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center text-xs font-bold">1</div>
+                    <span class="text-xs font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-md">08:30 - 20:30</span>
+                    <h3 class="font-bold text-slate-800 text-sm mt-1">二條市場海鮮丼早餐與伴手禮採買，晚間享用帝王蟹會席</h3>
+                    <p class="text-xs text-slate-500 mt-1">享受北海道最後一夜的極致美食饗宴。</p>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Nijo+Market+Sapporo" target="_blank" class="inline-flex items-center gap-1.5 text-xs bg-slate-100 text-slate-700 px-2.5 py-1 rounded-lg mt-2 font-medium hover:bg-amber-50 hover:text-amber-700 transition">
+                        <i class="fa-solid fa-store text-amber-600"></i> 二條市場導航
+                    </a>
+                </div>
+            </div>
+
+            <!-- Day 7 -->
+            <div id="day-content-7" class="day-content space-y-3 hidden">
+                <div class="bg-gradient-to-r from-red-50 to-orange-50 border border-red-200 rounded-2xl p-3.5 text-xs text-red-900 flex justify-between items-center shadow-sm">
+                    <div>
+                        <span class="font-bold text-sm block mb-0.5">Day 7：機場免稅店採買 ➔ 平安返台</span>
+                        <p class="text-slate-600">新千歲機場 ➔ 15:20 班機返回桃園</p>
+                    </div>
+                    <span class="text-2xl"><i class="fa-solid fa-plane-departure text-red-600"></i></span>
+                </div>
+                <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100 relative pl-12">
+                    <div class="absolute left-4 top-5 w-5 h-5 bg-red-100 text-red-600 rounded-full flex items-center justify-center text-xs font-bold">1</div>
+                    <span class="text-xs font-bold text-red-700 bg-red-50 px-2 py-0.5 rounded-md">11:30 - 15:20</span>
+                    <h3 class="font-bold text-slate-800 text-sm mt-1">新千歲機場免稅店最後衝刺，搭機返台</h3>
+                    <p class="text-xs text-slate-500 mt-1">帶著美好回憶賦歸！</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- PAGE 2: TRANSPORT -->
+        <section id="page-transport" class="page-view hidden space-y-4">
+            <h2 class="font-bold text-lg text-slate-800 flex items-center gap-2">
+                <i class="fa-solid fa-train text-blue-600"></i> 交通搭乘指南
+            </h2>
+            <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100 space-y-2">
+                <div class="text-sm font-bold text-blue-900"><span class="bg-blue-100 text-blue-700 px-2 py-0.5 rounded text-xs mr-1">Day 1</span> 京成電鐵 Skyliner</div>
+                <p class="text-xs text-slate-600">成田機場 ➔ 京成上野（約41分鐘，大人約 ¥2,570）</p>
+            </div>
+            <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100 space-y-2">
+                <div class="text-sm font-bold text-emerald-900"><span class="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded text-xs mr-1">Day 2</span> 富士山私人包車</div>
+                <p class="text-xs text-slate-600">早上 08:30 於上野民宿門口準時發車專車接送。</p>
+            </div>
+            <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100 space-y-2">
+                <div class="text-sm font-bold text-purple-900"><span class="bg-purple-100 text-purple-700 px-2 py-0.5 rounded text-xs mr-1">Day 3</span> 北陸新幹線</div>
+                <p class="text-xs text-slate-600">上野 ➔ 輕井澤（單程約 60 分鐘，大人約 ¥6,000）</p>
+            </div>
+            <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100 space-y-2">
+                <div class="text-sm font-bold text-sky-900"><span class="bg-sky-100 text-sky-700 px-2 py-0.5 rounded text-xs mr-1">Day 4</span> 日本國內線 + JR 快速 Airport</div>
+                <p class="text-xs text-slate-600">羽田飛新千歲 (10:15-11:45) + 新千歲往札幌站 (JR 37分鐘)</p>
+            </div>
+        </section>
+
+        <!-- PAGE 3: HOTELS -->
+        <section id="page-hotels" class="page-view hidden space-y-4">
+            <h2 class="font-bold text-lg text-slate-800 flex items-center gap-2">
+                <i class="fa-solid fa-hotel text-amber-500"></i> 住宿飯店資訊
+            </h2>
+            <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100 space-y-3">
+                <span class="text-xs font-bold text-blue-600 bg-blue-50 px-2.5 py-1 rounded-full">東京住宿 (11/21 - 11/24)</span>
+                <h3 class="font-bold text-slate-800 text-base">Moto Hotel Ueno III</h3>
+                <p class="text-xs text-slate-600"><i class="fa-solid fa-location-dot text-red-500 mr-1"></i> 日本〒110-0015 Tokyo, Taito City, Higashiueno, 6 Chome-23-6</p>
+                <a href="https://www.google.com/maps/search/?api=1&query=Moto+Hotel+Ueno+III+Tokyo" target="_blank" class="block text-center bg-blue-600 text-white text-xs py-2 rounded-xl font-bold shadow-sm">
+                    <i class="fa-solid fa-map-location-dot mr-1"></i> Google Maps 導航
+                </a>
+            </div>
+            <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100 space-y-3">
+                <span class="text-xs font-bold text-sky-600 bg-sky-50 px-2.5 py-1 rounded-full">北海道住宿 (11/24 - 11/27)</span>
+                <h3 class="font-bold text-slate-800 text-base">PINN-N4E2 Ⅱ</h3>
+                <p class="text-xs text-slate-600"><i class="fa-solid fa-location-dot text-red-500 mr-1"></i> 中央区北4条東2丁目 1-2, 札幌市, 060-0034, 日本</p>
+                <a href="https://www.google.com/maps/search/?api=1&query=PINN-N4E2+II+Sapporo" target="_blank" class="block text-center bg-sky-600 text-white text-xs py-2 rounded-xl font-bold shadow-sm">
+                    <i class="fa-solid fa-map-location-dot mr-1"></i> Google Maps 導航
+                </a>
+            </div>
+        </section>
+
+        <!-- PAGE 4: CHECKLIST -->
+        <section id="page-checklist" class="page-view hidden space-y-4">
+            <h2 class="font-bold text-lg text-slate-800 flex items-center gap-2">
+                <i class="fa-solid fa-clipboard-check text-emerald-600"></i> 行前準備與行李清單
+            </h2>
+            <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100 space-y-3">
+                <h3 class="font-bold text-xs uppercase tracking-wider text-slate-400">📄 重要證件與票券</h3>
+                <div class="space-y-2">
+                    <div class="flex items-center">
+                        <input type="checkbox" id="check-1" class="custom-checkbox hidden" onchange="saveChecklist()">
+                        <label for="check-1" class="flex items-center gap-2.5 cursor-pointer text-xs font-medium text-slate-700 w-full">
+                            <span class="checkbox-box w-5 h-5 rounded-md border-2 border-slate-300 flex items-center justify-center text-white text-xs transition"><i class="fa-solid fa-check hidden"></i></span>
+                            <span class="item-text">所有人護照 (效期6個月以上)</span>
+                        </label>
+                    </div>
+                    <div class="flex items-center">
+                        <input type="checkbox" id="check-2" class="custom-checkbox hidden" onchange="saveChecklist()">
+                        <label for="check-2" class="flex items-center gap-2.5 cursor-pointer text-xs font-medium text-slate-700 w-full">
+                            <span class="checkbox-box w-5 h-5 rounded-md border-2 border-slate-300 flex items-center justify-center text-white text-xs transition"><i class="fa-solid fa-check hidden"></i></span>
+                            <span class="item-text">機票與國內線電子憑證 / 住宿確認單</span>
+                        </label>
+                    </div>
+                    <div class="flex items-center">
+                        <input type="checkbox" id="check-3" class="custom-checkbox hidden" onchange="saveChecklist()">
+                        <label for="check-3" class="flex items-center gap-2.5 cursor-pointer text-xs font-medium text-slate-700 w-full">
+                            <span class="checkbox-box w-5 h-5 rounded-md border-2 border-slate-300 flex items-center justify-center text-white text-xs transition"><i class="fa-solid fa-check hidden"></i></span>
+                            <span class="item-text">Visit Japan Web 入境 QR Code</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100 space-y-3">
+                <h3 class="font-bold text-xs uppercase tracking-wider text-slate-400">🧥 禦寒衣物與電子設備</h3>
+                <div class="space-y-2">
+                    <div class="flex items-center">
+                        <input type="checkbox" id="check-4" class="custom-checkbox hidden" onchange="saveChecklist()">
+                        <label for="check-4" class="flex items-center gap-2.5 cursor-pointer text-xs font-medium text-slate-700 w-full">
+                            <span class="checkbox-box w-5 h-5 rounded-md border-2 border-slate-300 flex items-center justify-center text-white text-xs transition"><i class="fa-solid fa-check hidden"></i></span>
+                            <span class="item-text">發熱衣、羽絨外套、毛帽手套</span>
+                        </label>
+                    </div>
+                    <div class="flex items-center">
+                        <input type="checkbox" id="check-5" class="custom-checkbox hidden" onchange="saveChecklist()">
+                        <label for="check-5" class="flex items-center gap-2.5 cursor-pointer text-xs font-medium text-slate-700 w-full">
+                            <span class="checkbox-box w-5 h-5 rounded-md border-2 border-slate-300 flex items-center justify-center text-white text-xs transition"><i class="fa-solid fa-check hidden"></i></span>
+                            <span class="item-text">網卡 / eSIM 設定與行動電源</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PAGE 5: BUDGET -->
+        <section id="page-budget" class="page-view hidden space-y-4">
+            <h2 class="font-bold text-lg text-slate-800 flex items-center gap-2">
+                <i class="fa-solid fa-calculator text-amber-600"></i> 預估花費明細 (日圓)
+            </h2>
+            <div class="bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-2xl p-4 shadow-sm">
+                <span class="text-xs text-amber-100 block mb-1">每日每人預估餐飲與雜支</span>
+                <span class="text-2xl font-bold">¥5,000 ~ ¥8,000 / 天</span>
+            </div>
+            <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100 space-y-3">
+                <h3 class="font-bold text-xs uppercase tracking-wider text-slate-400">🚆 主要交通預估 (每人)</h3>
+                <div class="divide-y divide-slate-100 text-xs">
+                    <div class="py-2 flex justify-between"><span>Skyliner (成田 ➔ 上野)</span><span class="font-bold">¥2,570</span></div>
+                    <div class="py-2 flex justify-between"><span>輕井澤新幹線來回</span><span class="font-bold">約 ¥12,000</span></div>
+                    <div class="py-2 flex justify-between"><span>新千歲 ➔ 札幌 JR</span><span class="font-bold">約 ¥2,300</span></div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Bottom Navigation Bar -->
+    <nav class="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white/95 backdrop-blur-md border-t border-slate-200 py-2 px-3 flex justify-around items-center z-50 pb-safe shadow-lg">
+        <button onclick="switchTab('itinerary')" id="nav-itinerary" class="nav-btn flex flex-col items-center gap-1 text-blue-600">
+            <i class="fa-solid fa-calendar-day text-lg"></i>
+            <span class="text-[10px] font-bold">行程</span>
+        </button>
+        <button onclick="switchTab('transport')" id="nav-transport" class="nav-btn flex flex-col items-center gap-1 text-slate-400 hover:text-blue-600 transition">
+            <i class="fa-solid fa-train text-lg"></i>
+            <span class="text-[10px] font-bold">交通</span>
+        </button>
+        <button onclick="switchTab('hotels')" id="nav-hotels" class="nav-btn flex flex-col items-center gap-1 text-slate-400 hover:text-blue-600 transition">
+            <i class="fa-solid fa-hotel text-lg"></i>
+            <span class="text-[10px] font-bold">住宿</span>
+        </button>
+        <button onclick="switchTab('checklist')" id="nav-checklist" class="nav-btn flex flex-col items-center gap-1 text-slate-400 hover:text-blue-600 transition">
+            <i class="fa-solid fa-clipboard-list text-lg"></i>
+            <span class="text-[10px] font-bold">清單</span>
+        </button>
+        <button onclick="switchTab('budget')" id="nav-budget" class="nav-btn flex flex-col items-center gap-1 text-slate-400 hover:text-blue-600 transition">
+            <i class="fa-solid fa-coins text-lg"></i>
+            <span class="text-[10px] font-bold">預算</span>
+        </button>
+    </nav>
+
+    <!-- JavaScript Logic -->
+    <script>
+        function switchTab(tabName) {
+            document.querySelectorAll('.page-view').forEach(el => el.classList.add('hidden'));
+            const activePage = document.getElementById(`page-${tabName}`);
+            if (activePage) activePage.classList.remove('hidden');
+
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('text-blue-600');
+                btn.classList.add('text-slate-400');
+            });
+            const activeNav = document.getElementById(`nav-${tabName}`);
+            if (activeNav) {
+                activeNav.classList.remove('text-slate-400');
+                activeNav.classList.add('text-blue-600');
+            }
+            document.getElementById('app-content').scrollTop = 0;
+        }
+
+        function switchDay(dayNum) {
+            document.querySelectorAll('.day-content').forEach(el => el.classList.add('hidden'));
+            const activeDay = document.getElementById(`day-content-${dayNum}`);
+            if (activeDay) activeDay.classList.remove('hidden');
+
+            document.querySelectorAll('.day-btn').forEach(btn => {
+                btn.classList.remove('bg-blue-600', 'text-white', 'scale-105');
+                btn.classList.add('bg-white', 'text-slate-600');
+            });
+            const activeBtn = document.getElementById(`day-btn-${dayNum}`);
+            if (activeBtn) {
+                activeBtn.classList.remove('bg-white', 'text-slate-600');
+                activeBtn.classList.add('bg-blue-600', 'text-white', 'scale-105');
+            }
+        }
+
+        function saveChecklist() {
+            const checkboxes = document.querySelectorAll('.custom-checkbox');
+            const state = {};
+            checkboxes.forEach(cb => { state[cb.id] = cb.checked; });
+            localStorage.setItem('japan_trip_checklist', JSON.stringify(state));
+        }
+
+        function loadChecklist() {
+            const saved = localStorage.getItem('japan_trip_checklist');
+            if (saved) {
+                const state = JSON.parse(saved);
+                Object.keys(state).forEach(id => {
+                    const cb = document.getElementById(id);
+                    if (cb) cb.checked = state[id];
+                });
+            }
+        }
+
+        window.onload = function() { loadChecklist(); };
+    </script>
+</body>
+</html>
